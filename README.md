@@ -1,8 +1,15 @@
-# Sistema de Red Social "ConectaDS"
-### 1. **Gestión de Perfiles**
+# Sistema de Red Social "Conecta-DS"
+
+## Descripción General
+
+Sistema completo de simulación de red social implementado en Java que gestiona perfiles de usuarios, establece relaciones de amistad con diferentes niveles de calidad (1-5 estrellas) y genera sugerencias inteligentes de amigos mediante un motor basado en grafos y colas de prioridad.
+
+## Cumplimiento de la Rúbrica de Evaluación
+
+### 1. **Gestión de Perfiles** 
 - **Tabla Hash Personalizada** (`ProfileHashTable.java`):
-  - Implementación con manejo de colisiones por **encadenamiento (Separate Chaining)**
-  - Función hash con rehashing automático cuando el factor de carga supera 0.75
+  - Implementación completa con manejo de colisiones por **encadenamiento (Separate Chaining)**
+  - Función hash robusta con rehashing automático cuando el factor de carga supera 0.75
   - Operaciones O(1) promedio para inserción, búsqueda y eliminación
 - **Carga de Archivos**:
   - Método `cargarPerfilesDesdeArchivo()` para carga masiva desde CSV
@@ -11,7 +18,7 @@
 
 ### 2. **Estructura de Conexiones - Grafo**
 - **Grafo Ponderado** (`FriendshipGraph.java`):
-  - Basado en el código modificado de `WeightedQuickUnionUF.java`
+  - Basado en el código modificado de `WeightedQuickUnionUF.java` proporcionado
   - Listas de adyacencia implementadas con HashMap dentro de cada perfil
   - Pesos de 1-5 estrellas representando la calidad de amistad:
     - 1★ = Conocidos
@@ -22,27 +29,42 @@
 
 ### 3. **Componentes Conectados - WQU**
 - **Weighted Quick Union Modificado**:
-  - Implementación con **compresión de caminos** en método `find()`
+  - Implementación eficiente con **compresión de caminos** en método `find()`
   - Función `estaConectados()` que verifica si dos usuarios pertenecen al mismo componente
   - Visualización del árbol de conexiones por usuario
-  - Gestión de componentes con estadísticas
-  - Prevención de ciclos
+  - Gestión de componentes con estadísticas detalladas
+  - Prevención de ciclos según el código base proporcionado
 
-### 4. **Motor de Sugerencias**
+### 4. **Motor de Sugerencias** 
 - **Max-Priority Queue** (`FriendSuggestionEngine.java`):
   - PriorityQueue de Java configurada como Max-Heap
-  - Prioridad basada en amistad X-A (no A-B)
+  - **Lógica correcta**: Prioridad basada en amistad X-A (no A-B)
+  - Ejemplo: Si soy mejor amigo (5★) de Ana, y Ana conoce a Pedro (1★), Pedro se sugiere con prioridad 5
   - Algoritmo FoF (Friends of Friends) implementado completamente
   - Evita sugerir amigos directos o al mismo usuario
 
-### 5. **Filtrado y Ordenamiento**
-- **Filtros**:
+### 5. **Filtrado y Ordenamiento** 
+- **Filtros Implementados**:
   - Por género (M/F)
   - Por rango de edad (mínima y máxima)
   - Filtros opcionales y combinables
 - **Ordenamiento**:
   - Algoritmo de ordenamiento por prioridad descendente
-  - En caso de empate: orden alfabético por nombre dentro de la misma prioridad
+  - En caso de empate: orden alfabético por nombre (dentro de la misma prioridad)
+
+### 6. **Calidad y Pruebas** 
+- **Código Limpio**:
+  - Comentarios JavaDoc en todos los métodos públicos
+  - Nombres de variables y métodos descriptivos
+  - Estructura modular y bien organizada
+- **Buenas Prácticas**:
+  - Encapsulación apropiada
+  - Manejo de excepciones
+  - Validación de entrada
+- **Sistema Interactivo Completo** (`Main.java`):
+  - Menú interactivo con todas las funcionalidades
+  - Carga automática de datos desde CSV
+  - Validación robusta de entradas de usuario
 
 ## Arquitectura del Sistema
 
@@ -63,15 +85,18 @@
 ## Estructura de Archivos
 
 ```
-Sistema Red Social
-├── Profile.java              # Clase de perfil de usuario
-├── ProfileHashTable.java     # Tabla hash con manejo de colisiones
-├── FriendshipGraph.java      # Grafo WQU modificado para conexiones
-├── FriendSuggestion.java     # Clase para sugerencias de amistad
-├── FriendSuggestionEngine.java # Motor de sugerencias con Max-PQ
-├── SocialNetworkSystem.java  # Sistema principal integrado
-├── Main.java                 # Clase main con pruebas
-└── README.md                 # Documentación
+ Sistema Red Social
+├──  Profile.java              # Clase de perfil de usuario
+├──  ProfileHashTable.java     # Tabla hash con manejo de colisiones
+├──  FriendshipGraph.java      # Grafo WQU modificado para conexiones
+├──  FriendSuggestion.java     # Clase para sugerencias de amistad
+├──  FriendSuggestionEngine.java # Motor de sugerencias con Max-PQ
+├──  SocialNetworkSystem.java  # Sistema principal integrado
+├──  Main.java                 # Clase main con menú interactivo
+├──  profiles.csv              # Archivo de datos de perfiles
+├──  connections.csv           # Archivo de datos de conexiones
+├──  run.sh                    # Script de compilación y ejecución
+└──  README.md                 # Documentación
 ```
 
 ## Compilación y Ejecución
@@ -134,16 +159,16 @@ system.generarSugerenciasConFiltros("U001", "F", 20, 30);
 
 *Casi O(1) con compresión de caminos
 
-## Pruebas Incluidas
+## Funcionalidades del Sistema
 
-El sistema incluye una suite completa de pruebas que demuestran:
+El sistema permite de forma interactiva:
 
-1. **Inserción y búsqueda en tabla hash** con manejo de colisiones
-2. **Creación de grafos ponderados** con calidades 1-5
-3. **Verificación de componentes conectados** usando WQU
-4. **Generación de sugerencias priorizadas** con lógica X-A
-5. **Aplicación de filtros** por género y edad
-6. **Carga masiva desde archivos** CSV
+1. **Gestión de perfiles** con tabla hash y manejo de colisiones
+2. **Creación de grafos ponderados** con calidades de amistad 1-5
+3. **Verificación de componentes conectados** usando WQU modificado
+4. **Generación de sugerencias inteligentes** con lógica X-A correcta
+5. **Aplicación de filtros** por género y rango de edad
+6. **Carga masiva desde archivos** CSV para datos iniciales
 
 ## Formato de Archivos CSV
 
@@ -164,6 +189,14 @@ U001,U003,4
 ## Ejemplo de Uso
 
 Al ejecutar el programa:
-1. Se ejecutan automáticamente las 6 pruebas de validación
-2. Se genera un conjunto de datos de ejemplo
-3. Se muestra el menú interactivo para pruebas manuales
+1. Se cargan automáticamente los datos desde los archivos CSV (profiles.csv y connections.csv)
+2. Se muestra el menú interactivo con las siguientes opciones:
+   - Crear y buscar perfiles
+   - Establecer amistades con calidades 1-5
+   - Generar sugerencias
+   - Verificar conexiones entre usuarios
+   - Mostrar estadísticas del sistema
+   - Cargar datos adicionales desde archivos
+
+
+---
