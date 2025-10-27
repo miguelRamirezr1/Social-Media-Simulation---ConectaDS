@@ -95,8 +95,6 @@ Sistema completo de simulación de red social implementado en Java que gestiona 
 ├──  Main.java                 # Clase main con menú interactivo
 ├──  profiles.csv              # Archivo de datos de perfiles
 ├──  connections.csv           # Archivo de datos de conexiones
-├──  run.sh                    # Script de compilación y ejecución
-└──  README.md                 # Documentación
 ```
 
 ## Compilación y Ejecución
