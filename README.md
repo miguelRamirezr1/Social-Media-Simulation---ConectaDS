@@ -21,11 +21,11 @@ Sistema completo de simulación de red social implementado en Java que gestiona 
   - Basado en el código modificado de `WeightedQuickUnionUF.java` proporcionado
   - Listas de adyacencia implementadas con HashMap dentro de cada perfil
   - Pesos de 1-5 estrellas representando la calidad de amistad:
-    - 1★ = Conocidos
-    - 2★ = Amigos casuales  
-    - 3★ = Buenos amigos
-    - 4★ = Amigos cercanos
-    - 5★ = Mejores amigos
+    - 1 = Conocidos
+    - 2 = Amigos casuales  
+    - 3 = Buenos amigos
+    - 4 = Amigos cercanos
+    - 5 = Mejores amigos
 
 ### 3. **Componentes Conectados - WQU**
 - **Weighted Quick Union Modificado**:
